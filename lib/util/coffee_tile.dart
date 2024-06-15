@@ -1,18 +1,21 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CoffeeTile extends StatelessWidget {
   const CoffeeTile({
-    super.key,
+    Key? key,
     required this.coffeeImagePath,
     required this.coffeeName,
     required this.coffeeDesc,
+    required this.coffeeRating,
     required this.coffeePrice,
-  });
+  }) : super(key: key);
 
   final String coffeeImagePath;
   final String coffeeName;
   final String coffeeDesc;
+  final String coffeeRating;
   final String coffeePrice;
 
   @override
@@ -38,10 +41,39 @@ class CoffeeTile extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Image.asset(coffeeImagePath),
-              ),
+              Stack(children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.asset(coffeeImagePath),
+                ),
+                Positioned(
+                  right: 0,
+                  child: Container(
+                    width: 80,
+                    decoration: BoxDecoration(
+                        color: Colors.grey.shade900.withOpacity(0.7),
+                        borderRadius: BorderRadius.circular(12)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.star,
+                            color: Colors.orange,
+                            size: 20,
+                          ),
+                          const SizedBox(width: 5),
+                          Text(
+                            coffeeRating,
+                            style: GoogleFonts.poppins(fontSize: 13),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              ]),
               const SizedBox(height: 16),
               Text(
                 coffeeName,
