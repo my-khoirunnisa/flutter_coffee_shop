@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_coffee_shop/pages/detail_page.dart';
 import 'package:flutter_coffee_shop/util/coffee_tile.dart';
 import 'package:flutter_coffee_shop/util/coffee_tile_vertical.dart';
 import 'package:flutter_coffee_shop/util/coffee_type.dart';
@@ -114,12 +115,26 @@ class _HomePageState extends State<HomePage> {
                     itemCount: coffeeItem.length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (_, index) {
-                      return CoffeeTile(
-                          coffeeImagePath: coffeeItem[index][0],
-                          coffeeName: coffeeItem[index][1],
-                          coffeeDesc: coffeeItem[index][2],
-                          coffeeRating: coffeeItem[index][3],
-                          coffeePrice: coffeeItem[index][4]);
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(_,
+                              MaterialPageRoute(builder: (builder) {
+                            return DetailPage(
+                              coffeeImage: coffeeItem[index][0],
+                              coffeeTitle: coffeeItem[index][1],
+                              coffeeSubTitle: coffeeItem[index][2],
+                              coffeeRating: coffeeItem[index][3],
+                              coffeePrice: coffeeItem[index][4],
+                            );
+                          }));
+                        },
+                        child: CoffeeTile(
+                            coffeeImagePath: coffeeItem[index][0],
+                            coffeeName: coffeeItem[index][1],
+                            coffeeDesc: coffeeItem[index][2],
+                            coffeeRating: coffeeItem[index][3],
+                            coffeePrice: coffeeItem[index][4]),
+                      );
                     },
                   ),
                 ),
